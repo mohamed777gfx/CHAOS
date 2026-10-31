@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="CHAOS streetwear. Drop 001.">
+<title>CHAOS Streetwear</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wdth,wght@75..125,300..800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: full-bleed black stage. Fog + ash canvas behind a floating layered emblem; a thin mono nav; then a product rail, the marks, a lookbook grid and a giant footer wordmark. Chaos lives in jitter, slices and a cursor light, never in unreadable text. */
+:root{
+  --ink:#070405;      /* black with a red bias */
+  --ink-2:#120709;    /* raised surface */
+  --blood:#6e0f22;    /* burgundy from the logo */
+  --red:#b3162f;      /* lit red for hover and light */
+  --bone:#f8f5f0;     /* logo white */
+  --ash:#a8999c;      /* muted text */
+  --line:rgba(248,245,240,.14);
+  --display:'Anton',Impact,'Arial Narrow',sans-serif;
+  --body:'Archivo','Helvetica Neue',Arial,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--ink)}
+body{margin:0;background:var(--ink);color:var(--bone);font-family:var(--body);font-size:16px;line-height:1.55;overflow-x:hidden}
+img,svg{max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--bone);outline-offset:3px}
+.wrap{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));max-width:1320px;margin:0 auto}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.wmk{fill:var(--f,var(--bone));color:var(--c,var(--blood))}
+.defs{position:absolute;width:0;height:0;overflow:hidden}
+
+/* film grain over everything */
+.grain{position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.16;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='220' height='220' filter='url(%23n)'/></svg>");
+  animation:grain 1.2s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
+
+/* nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:env(safe-area-inset-top,0px);background:linear-gradient(var(--ink),rgba(7,4,5,0))}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:16px}
+.nav a,.nav button.bag{color:var(--bone);position:relative}
+.nav-links{display:flex;gap:22px}
+.nav-links a:hover,.bag:hover{color:var(--red)}
+.nav .brand{position:absolute;left:50%;transform:translateX(-50%);display:block;width:116px;color:var(--bone)}
+.nav .brand svg{display:block;width:100%;height:auto;overflow:visible}
+.bag{background:none;border:0;padding:0}
+
+/* hero */
+.hero{position:relative;min-height:min(92svh,900px);display:grid;place-items:center;overflow:hidden;isolation:isolate;padding-block:96px 150px}
+#fog{position:absolute;inset:0;width:100%;height:100%;z-index:-2;display:block}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(420px circle at var(--px,50%) var(--py,45%),rgba(179,22,47,.28),transparent 70%),
+             linear-gradient(to bottom,rgba(7,4,5,.55),transparent 28%,transparent 62%,var(--ink) 100%)}
+.stage{position:relative;width:min(64vw,52svh,520px);aspect-ratio:900/1004;perspective:900px}
+.emblem{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateY(calc(var(--rx,0)*1deg)) rotateX(calc(var(--ry,0)*-1deg));transition:transform .15s ease-out;animation:float 7s ease-in-out infinite,jolt 6.5s steps(1) infinite}
+.emblem img{position:absolute;inset:0;width:100%;height:100%;display:block;user-select:none;-webkit-user-drag:none}
+.emblem .l-red{transform:translate(calc(var(--rx,0)*-1.4px - 14px),calc(var(--ry,0)*1.4px + 10px));filter:drop-shadow(0 0 30px rgba(179,22,47,.6))}
+.emblem .l-white{filter:drop-shadow(0 12px 40px rgba(0,0,0,.6))}
+@keyframes float{0%,100%{translate:0 -8px}50%{translate:0 10px}}
+@keyframes jolt{
+  0%,90%{clip-path:none}
+  91%{clip-path:inset(0 0 52% 0);margin-left:-10px}
+  92%{clip-path:inset(46% 0 0 0);margin-left:12px}
+  93%{clip-path:none;margin-left:-5px;filter:brightness(1.5)}
+  94%,100%{clip-path:none;margin-left:0;filter:none}}
+.hero-copy{position:absolute;left:0;right:0;bottom:36px;text-align:center}
+.hero-copy .kicker{color:var(--ash)}
+.cta{display:inline-flex;align-items:center;gap:12px;margin-top:14px;padding:14px 26px;border:1px solid var(--bone);background:transparent;color:var(--bone);font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;transition:background .2s,color .2s,border-color .2s}
+.cta:hover{background:var(--bone);color:var(--ink)}
+.cta.solid{background:var(--blood);border-color:var(--blood)}
+.cta.solid:hover{background:var(--bone);border-color:var(--bone);color:var(--ink)}
+.side{position:absolute;top:50%;color:var(--ash);writing-mode:vertical-rl;transform:translateY(-50%)}
+.side.a{left:max(14px,env(safe-area-inset-left,0px))}
+.side.b{right:max(14px,env(safe-area-inset-right,0px));transform:translateY(-50%) rotate(180deg)}
+
+/* ticker */
+.ticker{border-block:1px solid var(--line);background:var(--blood);overflow:hidden;white-space:nowrap}
+.ticker-track{display:inline-flex;animation:tick 28s linear infinite;padding-block:10px}
+.ticker span{font-family:var(--display);font-size:26px;letter-spacing:.06em;text-transform:uppercase;padding-inline:22px;color:var(--bone)}
+.ticker span.o{color:transparent;-webkit-text-stroke:1px var(--bone)}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* sections */
+section{padding-block:clamp(64px,10vw,120px)}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:36px}
+.h2{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(48px,9vw,120px);line-height:.92;text-transform:uppercase;letter-spacing:.01em;text-wrap:balance}
+.slice{position:relative;display:inline-block}
+.slice::before,.slice::after{content:attr(data-t);position:absolute;inset:0;pointer-events:none;opacity:0}
+.slice::before{color:var(--red);clip-path:inset(0 0 58% 0)}
+.slice::after{color:var(--bone);clip-path:inset(62% 0 0 0);-webkit-text-stroke:0}
+.slice:hover::before{opacity:1;animation:sl1 .5s steps(2) infinite}
+.slice:hover::after{opacity:1;animation:sl2 .4s steps(2) infinite}
+@keyframes sl1{0%{transform:translateX(-8px)}50%{transform:translateX(10px)}100%{transform:translateX(-4px)}}
+@keyframes sl2{0%{transform:translateX(9px)}50%{transform:translateX(-11px)}100%{transform:translateX(5px)}}
+.sub{max-width:44ch;color:var(--ash);margin:0}
+
+/* products */
+.rail{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.card{position:relative;background:var(--ink-2);border:1px solid var(--line);padding:0;text-align:left;display:flex;flex-direction:column;transition:border-color .2s,transform .2s}
+.card:hover{border-color:var(--red);transform:translateY(-4px) rotate(-.4deg)}
+.card .pic{aspect-ratio:4/5;display:grid;place-items:center;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(110,15,34,.35),transparent 70%)}
+.card .pic svg{width:92%;height:auto;display:block;transition:transform .4s}
+.card:hover .pic svg{transform:scale(1.06) rotate(1.2deg)}
+.card .meta{display:flex;justify-content:space-between;gap:12px;padding:14px 16px 16px;border-top:1px solid var(--line)}
+.card .name{font-family:var(--display);font-size:22px;letter-spacing:.03em;text-transform:uppercase;line-height:1.1}
+.card .tag{color:var(--ash);margin-top:4px}
+.card .price{font-family:var(--mono);font-size:14px;white-space:nowrap}
+.badge{position:absolute;top:12px;left:12px;z-index:2;background:var(--bone);color:var(--ink);padding:3px 8px}
+
+/* marks */
+.marks{background:linear-gradient(var(--ink),var(--ink-2) 40%,var(--ink))}
+.marks-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.mark{aspect-ratio:1;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr);place-items:center;min-width:0;border:1px solid var(--line);position:relative;overflow:hidden}
+.mark img{width:62%;max-height:78%;object-fit:contain;display:block}
+.mark svg{width:84%;height:auto;overflow:visible}
+.mark figcaption{position:absolute;left:12px;bottom:10px;color:var(--ash)}
+.mark.on-bone{background:var(--bone)}
+.mark.on-bone figcaption{color:var(--blood)}
+.mark.on-blood{background:var(--blood)}
+.mark.on-blood figcaption{color:var(--bone)}
+.mark.on-ink{background:var(--ink)}
+.manifesto{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(24px,5vw,72px);margin-top:56px;align-items:start}
+.manifesto p{margin:0 0 1em;max-width:54ch;font-size:18px}
+.manifesto p.big{font-family:var(--display);font-size:clamp(28px,4vw,48px);line-height:1.05;text-transform:uppercase;max-width:20ch;margin:0}
+.spec{border-top:1px solid var(--line)}
+.spec div{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}
+.spec dt{color:var(--ash)}
+.spec dd{margin:0;text-align:right}
+
+/* lookbook */
+.look{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tile{position:relative;aspect-ratio:1;min-width:0;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr);overflow:hidden;display:grid;place-items:center;border:1px solid var(--line);isolation:isolate}
+.tile>*{transition:transform .5s}
+.tile:hover>*{transform:scale(1.07) rotate(-1.5deg)}
+.tile .cap{position:absolute;left:10px;bottom:8px;z-index:2;transform:none!important;color:var(--bone);mix-blend-mode:difference}
+.tile img{width:70%;max-height:80%;object-fit:contain;display:block}
+.tile svg{width:86%;height:auto;overflow:visible}
+.t1{background:var(--blood)}
+.t2{background:var(--ink-2)}
+.t3{background:#000}
+.t4{background:var(--bone)}
+.t5{background:var(--ink)}
+.t6{background:var(--red)}
+.t1 img{width:130%;max-width:none;max-height:none;opacity:.5;margin-top:20%}
+.t3 .static{position:absolute;inset:0;opacity:.8;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='1' seed='3'/><feColorMatrix type='saturate' values='0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");animation:grain .6s steps(4) infinite}
+.t3 img{position:relative;width:48%;mix-blend-mode:difference}
+.t5{background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:34px 34px}
+.t5 img{width:58%}
+
+/* newsletter */
+.news{border-block:1px solid var(--line);background:var(--ink-2)}
+.news-in{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,72px);align-items:end}
+.form{display:flex;gap:0;border:1px solid var(--bone);max-width:520px}
+.form input{flex:1;min-width:0;background:transparent;border:0;color:var(--bone);padding:16px;font-family:var(--mono);font-size:13px;letter-spacing:.08em}
+.form input::placeholder{color:var(--ash)}
+.form button{border:0;border-left:1px solid var(--bone);background:var(--bone);color:var(--ink);padding:0 22px;font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+.form button:hover{background:var(--red);color:var(--bone)}
+.note{color:var(--ash);margin:12px 0 0;min-height:1.5em}
+
+/* footer */
+footer{padding-top:56px;overflow:hidden}
+.foot-links{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-bottom:36px}
+.foot-links div{display:flex;gap:22px;flex-wrap:wrap}
+.foot-links a:hover{color:var(--red)}
+.giant{display:block;width:104%;margin:0 -2% -3.5vw}
+.giant svg{display:block;width:100%;height:auto;overflow:visible}
+.legal{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:18px;border-top:1px solid var(--line);color:var(--ash);position:relative;z-index:1;background:var(--ink)}
+
+/* product sheet */
+.sheet{position:fixed;inset:0;z-index:70;display:none;background:rgba(7,4,5,.94);overflow-y:auto;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.sheet.open{display:block}
+.sheet-in{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(20px,4vw,64px);align-items:center;min-height:100svh;padding-block:72px 40px}
+.sheet .big-pic{background:radial-gradient(circle at 50% 40%,rgba(110,15,34,.5),transparent 70%);display:grid;place-items:center}
+.sheet .big-pic svg{width:100%;max-width:640px;height:auto;display:block}
+.sheet h3{margin:0 0 6px;font-family:var(--display);font-weight:400;font-size:clamp(40px,6vw,76px);line-height:.95;text-transform:uppercase}
+.sheet .price{font-family:var(--mono);font-size:18px;margin:0 0 22px}
+.sizes{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 22px}
+.sizes button{min-width:52px;padding:12px 0;background:transparent;border:1px solid var(--line);font-family:var(--mono);font-size:13px}
+.sizes button:hover{border-color:var(--bone)}
+.sizes button[aria-pressed="true"]{background:var(--bone);color:var(--ink);border-color:var(--bone)}
+.sheet ul{margin:22px 0 0;padding:0;list-style:none;color:var(--ash);border-top:1px solid var(--line)}
+.sheet li{padding:10px 0;border-bottom:1px solid var(--line)}
+.x{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));background:none;border:1px solid var(--line);width:44px;height:44px;font-size:20px;line-height:1}
+.x:hover{border-color:var(--red);color:var(--red)}
+
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);opacity:0;z-index:90;background:var(--bone);color:var(--ink);padding:12px 20px;pointer-events:none;transition:.25s;max-width:calc(100vw - 32px)}
+.toast.show{transform:translate(-50%,0);opacity:1}
+
+@media (max-width:820px){
+  .manifesto,.news-in,.sheet-in{grid-template-columns:1fr}
+  .look{grid-template-columns:repeat(2,1fr)}
+  .side{display:none}
+  .nav .brand{width:92px}
+  .nav-links{gap:14px}
+  .sheet-in{padding-top:84px}
+}
+@media (max-width:420px){.nav-links a:nth-child(3){display:none}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+
+</head>
+<body>
+<!-- shared vector defs: the sliced wordmark (logo 4) and product art -->
+<svg class="defs" aria-hidden="true" focusable="false">
+  <defs>
+    <clipPath id="cA1"><rect x="-700" y="-420" width="1400" height="268"/></clipPath>
+    <clipPath id="cA2"><rect x="-700" y="-134" width="1400" height="44"/></clipPath>
+    <clipPath id="cB"><rect x="-700" y="-90" width="1400" height="70"/></clipPath>
+    <clipPath id="cC"><rect x="-700" y="-20" width="1400" height="140"/></clipPath>
+    <clipPath id="cD"><rect x="-700" y="-152" width="1400" height="18"/></clipPath>
+    <text id="wt" x="0" y="0" text-anchor="middle" font-family="Anton, Impact, 'Arial Narrow', sans-serif" font-size="330" letter-spacing="8" rotate="0 -3 2 -2 3" dy="0 -8 14 -10 4">CHAOS</text>
+    <g id="wm">
+      <g fill="currentColor"><use href="#wt" x="10" y="8"/></g>
+      <g clip-path="url(#cA1)"><use href="#wt"/></g>
+      <g clip-path="url(#cA2)"><use href="#wt"/></g>
+      <g clip-path="url(#cB)"><use href="#wt" x="22"/></g>
+      <g clip-path="url(#cC)"><use href="#wt" x="-12"/></g>
+      <g clip-path="url(#cD)" fill="currentColor"><use href="#wt" x="-40"/></g>
+    </g>
+    <path id="shirt" d="M 340 150 L 140 250 L 215 410 L 300 372 L 300 880 L 700 880 L 700 372 L 785 410 L 860 250 L 660 150 C 620 215 380 215 340 150 Z"/>
+    <image id="im-white" href="img/emblem-white.png" width="900" height="1004"/>
+    <image id="im-red" href="img/emblem-burgundy.png" width="900" height="1004"/>
+    <image id="im-layer" href="img/emblem-white-shadow.png" width="900" height="995"/>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="14"/></filter>
+  </defs>
+</svg>
+
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="wrap nav-in mono">
+    <nav class="nav-links" aria-label="Main">
+      <a href="#shop">Shop</a>
+      <a href="#lookbook">Lookbook</a>
+      <a href="#marks">The marks</a>
+    </nav>
+    <a class="brand" href="#top" aria-label="CHAOS home">
+      <svg class="wmk" viewBox="-460 -300 920 380" role="img" aria-label="CHAOS"><use href="#wm"/></svg>
+    </a>
+    <button class="bag mono" id="bag" type="button" aria-label="Bag">Bag (<span id="bagN">0</span>)</button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" id="hero">
+    <canvas id="fog" aria-hidden="true"></canvas>
+    <span class="side a mono">Drop 001 / Autumn 2026</span>
+    <span class="side b mono">No order. No rules.</span>
+    <div class="stage" id="stage">
+      <div class="emblem" id="emblem">
+        <img class="l-red" src="img/emblem-burgundy.png" alt="" width="900" height="1004">
+        <img class="l-white" src="img/emblem-white.png" alt="CHAOS emblem: a tangled butterfly-shaped Lorenz attractor" width="900" height="1004">
+      </div>
+    </div>
+    <div class="hero-copy wrap">
+      <div class="kicker mono">Streetwear built on a system nobody can predict</div>
+      <a class="cta solid" href="#shop">Shop Drop 001 <span aria-hidden="true">&rarr;</span></a>
+    </div>
+  </section>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>Chaos</span><span class="o">No order</span><span>Drop 001</span><span class="o">Break the pattern</span><span>Chaos</span><span class="o">No rules</span><span>Wear the noise</span><span class="o">Chaos</span>
+      <span>Chaos</span><span class="o">No order</span><span>Drop 001</span><span class="o">Break the pattern</span><span>Chaos</span><span class="o">No rules</span><span>Wear the noise</span><span class="o">Chaos</span>
+    </div>
+  </div>
+
+  <section id="shop">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="h2 slice" data-t="Drop 001">Drop 001</h2>
+        <p class="sub">Four pieces, heavyweight cotton, printed in black, blood and bone. Tap a piece for sizes.</p>
+      </div>
+      <div class="rail" id="rail"></div>
+    </div>
+  </section>
+
+  <section class="marks" id="marks">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="h2 slice" data-t="The marks">The marks</h2>
+        <p class="sub">Four ways to sign a piece. One emblem in three colorways, and the sliced wordmark.</p>
+      </div>
+      <div class="marks-grid">
+        <figure class="mark on-ink" style="margin:0"><img src="img/emblem-white.png" alt="CHAOS emblem in white" width="900" height="1004"><figcaption class="mono">01 Emblem / Bone</figcaption></figure>
+        <figure class="mark on-bone" style="margin:0"><img src="img/emblem-burgundy.png" alt="CHAOS emblem in burgundy" width="900" height="1004"><figcaption class="mono">02 Emblem / Blood</figcaption></figure>
+        <figure class="mark on-blood" style="margin:0"><img src="img/emblem-white-shadow.png" alt="CHAOS emblem in white with a burgundy offset shadow" width="900" height="995"><figcaption class="mono">03 Emblem / Layered</figcaption></figure>
+        <figure class="mark on-ink" style="margin:0;color:var(--bone)"><svg class="wmk" viewBox="-460 -300 920 380" role="img" aria-label="CHAOS sliced wordmark"><use href="#wm"/></svg><figcaption class="mono">04 Wordmark / Sliced</figcaption></figure>
+      </div>
+      <div class="manifesto">
+        <div>
+          <p class="big">The mark is a math problem that never repeats.</p>
+        </div>
+        <div>
+          <p>The emblem is a Lorenz attractor, the first picture of chaos theory. Two paths that start almost on top of each other end up nowhere near each other. That is the brand: small decisions, loud results.</p>
+          <dl class="spec" style="margin:24px 0 0">
+            <div class="mono"><dt>System</dt><dd>Lorenz, 1963</dd></div>
+            <div class="mono"><dt>Parameters</dt><dd>&sigma; 10 &middot; &rho; 28 &middot; &beta; 8/3</dd></div>
+            <div class="mono"><dt>Palette</dt><dd>Ink &middot; Blood &middot; Bone</dd></div>
+            <div class="mono"><dt>Type</dt><dd>Anton, cut in five bands</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="lookbook">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="h2 slice" data-t="Lookbook">Lookbook</h2>
+        <a class="cta" href="#" id="ig">Follow on Instagram <span aria-hidden="true">&rarr;</span></a>
+      </div>
+      <div class="look">
+        <div class="tile t1"><img src="img/emblem-white.png" alt=""><span class="cap mono">Look 01</span></div>
+        <div class="tile t2"><svg class="wmk" viewBox="-460 -300 920 380" aria-hidden="true"><use href="#wm"/></svg><span class="cap mono">Look 02</span></div>
+        <div class="tile t3"><div class="static"></div><img src="img/emblem-white.png" alt=""><span class="cap mono">Look 03</span></div>
+        <div class="tile t4"><img src="img/emblem-burgundy.png" alt=""><span class="cap mono" style="mix-blend-mode:normal;color:var(--blood)">Look 04</span></div>
+        <div class="tile t5"><img src="img/emblem-white-shadow.png" alt=""><span class="cap mono">Look 05</span></div>
+        <div class="tile t6"><svg class="wmk" viewBox="-460 -300 920 380" aria-hidden="true" style="--c:var(--ink)"><use href="#wm"/></svg><span class="cap mono">Look 06</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="news">
+    <div class="wrap news-in">
+      <h2 class="h2" style="font-size:clamp(44px,7vw,92px)">Get the next drop first</h2>
+      <div>
+        <form class="form" id="form" novalidate>
+          <input id="email" type="email" placeholder="your@email.com" autocomplete="email" aria-label="Email address" required>
+          <button type="submit">Join</button>
+        </form>
+        <p class="note mono" id="note">One email per drop. Nothing else.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-links mono">
+      <div><a href="#shop">Shop</a><a href="#lookbook">Lookbook</a><a href="#marks">The marks</a></div>
+      <div><a href="#">Instagram</a><a href="#">TikTok</a><a href="#">Contact</a></div>
+    </div>
+  </div>
+  <span class="giant" aria-hidden="true"><svg class="wmk" viewBox="-460 -300 920 380" style="--f:var(--blood);--c:#2a050c"><use href="#wm"/></svg></span>
+  <div class="wrap legal mono"><span>&copy; 2026 CHAOS</span><span>Shipping &amp; returns</span><span>Made in the noise</span></div>
+</footer>
+
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sName" aria-hidden="true">
+  <button class="x" id="close" type="button" aria-label="Close">&times;</button>
+  <div class="wrap sheet-in">
+    <div class="big-pic" id="sPic"></div>
+    <div>
+      <div class="mono" style="color:var(--ash)" id="sTag"></div>
+      <h3 id="sName"></h3>
+      <p class="price" id="sPrice"></p>
+      <div class="mono">Size</div>
+      <div class="sizes" id="sizes"></div>
+      <button class="cta solid" id="add" type="button">Add to bag</button>
+      <ul class="mono" style="letter-spacing:.08em;text-transform:none;font-size:13px">
+        <li>Heavyweight 240 gsm cotton, boxy fit</li>
+        <li>Screen printed, washes in, does not crack</li>
+        <li>Ships in 3 to 5 days</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="toast mono" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  var $=function(s,r){return (r||document).querySelector(s)};
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* products: garment fill + print. Sample prices, replace with real ones. */
+  var P=[
+    {id:'p1',name:'Emblem Tee',tag:'Black / layered',price:42,fill:'#0d0809',edge:'#2a1216',print:'layer',badge:'New'},
+    {id:'p2',name:'Wordmark Tee',tag:'Blood / bone',price:42,fill:'#6e0f22',edge:'#8f2037',print:'word',word:'#f8f5f0'},
+    {id:'p3',name:'Emblem Tee',tag:'Bone / blood',price:42,fill:'#ece6dd',edge:'#c9c0b4',print:'red'},
+    {id:'p4',name:'Static Tee',tag:'Black / bone',price:46,fill:'#150a0c',edge:'#3a1a20',print:'white',badge:'Limited'}
+  ];
+  function art(p,big){
+    var pr='';
+    if(p.print==='layer')pr='<use href="#im-layer" transform="translate(402 332) scale(.2)"/>';
+    if(p.print==='white')pr='<use href="#im-white" transform="translate(402 332) scale(.2)"/>';
+    if(p.print==='red')pr='<use href="#im-red" transform="translate(402 332) scale(.2)"/>';
+    if(p.print==='word')pr='<g transform="translate(500 470) scale(.2)" style="color:#2a050c" fill="'+p.word+'"><use href="#wm"/></g>';
+    var sl=p.print==='word'?'<use href="#im-white" transform="translate(172 266) rotate(-27) scale(.045)"/>':(p.print==='red'?'<use href="#im-red" transform="translate(172 266) rotate(-27) scale(.045)"/>':'<use href="#im-white" transform="translate(172 266) rotate(-27) scale(.045)"/>');
+    return '<svg viewBox="100 110 800 800" role="img" aria-label="'+p.name+', '+p.tag+'">'+
+      '<ellipse cx="500" cy="892" rx="260" ry="22" fill="#000" opacity=".55" filter="url(#soft)"/>'+
+      '<use href="#shirt" fill="'+p.fill+'"/>'+
+      '<path d="M 336 152 C 385 242 615 242 664 152" fill="none" stroke="'+p.edge+'" stroke-width="18" stroke-linecap="round"/>'+
+      '<path d="M 300 864 H 700 M 163 262 L 229 397 M 837 262 L 771 397" stroke="'+p.edge+'" stroke-width="2" stroke-dasharray="8 6" fill="none"/>'+
+      pr+sl+'</svg>';
+  }
+  var rail=$('#rail');
+  rail.innerHTML=P.map(function(p){
+    return '<button class="card" type="button" data-id="'+p.id+'" aria-label="'+p.name+', '+p.tag+', $'+p.price+'">'+
+      (p.badge?'<span class="badge mono">'+p.badge+'</span>':'')+
+      '<div class="pic">'+art(p)+'</div>'+
+      '<div class="meta"><div><div class="name">'+p.name+'</div><div class="tag mono">'+p.tag+'</div></div><div class="price">$'+p.price+'</div></div></button>';
+  }).join('');
+
+  /* product sheet + bag */
+  var sheet=$('#sheet'),cur=null,size=null,lastFocus=null,bag=0;
+  var sizes=['S','M','L','XL'];
+  function toast(t){var e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(function(){e.classList.remove('show')},2200)}
+  function open(id){
+    cur=P.filter(function(p){return p.id===id})[0];size=null;lastFocus=document.activeElement;
+    $('#sPic').innerHTML=art(cur,true);$('#sName').textContent=cur.name;$('#sTag').textContent='Drop 001 / '+cur.tag;$('#sPrice').textContent='$'+cur.price;
+    $('#sizes').innerHTML=sizes.map(function(s){return '<button type="button" aria-pressed="false" data-s="'+s+'">'+s+'</button>'}).join('');
+    sheet.classList.add('open');sheet.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';$('#close').focus();
+  }
+  function close(){sheet.classList.remove('open');sheet.setAttribute('aria-hidden','true');document.body.style.overflow='';if(lastFocus)lastFocus.focus()}
+  rail.addEventListener('click',function(e){var c=e.target.closest('.card');if(c)open(c.dataset.id)});
+  $('#sizes').addEventListener('click',function(e){
+    var b=e.target.closest('button');if(!b)return;size=b.dataset.s;
+    [].forEach.call(this.children,function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
+  });
+  $('#add').addEventListener('click',function(){
+    if(!size){toast('Pick a size first');return}
+    bag++;$('#bagN').textContent=bag;toast(cur.name+' / '+size+' added to bag');close();
+  });
+  $('#close').addEventListener('click',close);
+  sheet.addEventListener('click',function(e){if(e.target===sheet)close()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&sheet.classList.contains('open'))close()});
+  $('#bag').addEventListener('click',function(){toast(bag?bag+' item'+(bag>1?'s':'')+' in your bag':'Your bag is empty')});
+
+  /* demo-only form and placeholder links */
+  $('#form').addEventListener('submit',function(e){
+    e.preventDefault();var v=$('#email').value.trim(),n=$('#note');
+    if(!/^\S+@\S+\.\S+$/.test(v)){n.textContent='Enter a valid email address.';return}
+    n.textContent='Preview only: connect an email service to collect signups.';$('#email').value='';
+  });
+  $('#ig').addEventListener('click',function(e){e.preventDefault();toast('Add your Instagram link here')});
+
+  /* hero: tilt, split layers, cursor light */
+  var hero=$('#hero'),em=$('#emblem');
+  hero.addEventListener('pointermove',function(e){
+    var r=hero.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+    hero.style.setProperty('--px',(x*100)+'%');hero.style.setProperty('--py',(y*100)+'%');
+    em.style.setProperty('--rx',((x-.5)*26).toFixed(1));em.style.setProperty('--ry',((y-.5)*20).toFixed(1));
+  });
+  hero.addEventListener('pointerleave',function(){em.style.setProperty('--rx',0);em.style.setProperty('--ry',0)});
+
+  /* fog and ash */
+  var cv=$('#fog'),ctx=cv.getContext('2d'),W=0,H=0,blobs=[],ash=[],raf=0,visible=true;
+  function resize(){
+    var r=hero.getBoundingClientRect();W=cv.width=Math.max(300,Math.floor(r.width/2));H=cv.height=Math.max(300,Math.floor(r.height/2));
+    blobs=[];for(var i=0;i<8;i++)blobs.push({x:Math.random()*W,y:Math.random()*H,r:(.25+Math.random()*.35)*Math.max(W,H),vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.25,a:.16+Math.random()*.22,hot:Math.random()<.45});
+    ash=[];for(var j=0;j<70;j++)ash.push({x:Math.random()*W,y:Math.random()*H,s:.6+Math.random()*1.6,v:.15+Math.random()*.6,d:Math.random()*6.28,red:Math.random()<.4});
+  }
+  function frame(){
+    ctx.globalCompositeOperation='source-over';ctx.fillStyle='#070405';ctx.fillRect(0,0,W,H);
+    ctx.globalCompositeOperation='lighter';
+    blobs.forEach(function(b){
+      b.x+=b.vx;b.y+=b.vy;if(b.x<-b.r)b.x=W+b.r;if(b.x>W+b.r)b.x=-b.r;if(b.y<-b.r)b.y=H+b.r;if(b.y>H+b.r)b.y=-b.r;
+      var g=ctx.createRadialGradient(b.x,b.y,0,b.x,b.y,b.r);
+      var c=b.hot?'160,20,45':'90,12,28';
+      g.addColorStop(0,'rgba('+c+','+b.a+')');g.addColorStop(1,'rgba('+c+',0)');ctx.fillStyle=g;ctx.fillRect(b.x-b.r,b.y-b.r,b.r*2,b.r*2);
+    });
+    ash.forEach(function(p){
+      p.y-=p.v;p.d+=.02;p.x+=Math.sin(p.d)*.4;if(p.y<-4){p.y=H+4;p.x=Math.random()*W}
+      ctx.fillStyle=p.red?'rgba(220,40,70,.7)':'rgba(248,245,240,.55)';ctx.fillRect(p.x,p.y,p.s,p.s);
+    });
+    if(!reduce&&visible)raf=requestAnimationFrame(frame);
+  }
+  resize();frame();
+  addEventListener('resize',function(){resize();if(reduce)frame()});
+  new IntersectionObserver(function(en){visible=en[0].isIntersecting;if(visible&&!reduce){cancelAnimationFrame(raf);raf=requestAnimationFrame(frame)}}).observe(hero);
+})();
+</script>
+</body>
+</html>
